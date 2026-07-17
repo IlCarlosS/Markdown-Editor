@@ -1,0 +1,187 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ============================
+   1. Variables de diseño
+   ============================ */
+:root {
+  --color-fondo: #e8e9e9;
+  --color-fondo-secundario: #f3f3f3;
+  --color-primario: #0066b9;
+  --color-secundario: #243a5f;
+  --color-texto: #05161e;
+  --color-exito: #3dbb61;
+  --color-error: #e63946;
+  --color-advertencia: #ffa600;
+  --color-icon: #243a5f;
+
+  --fuente-principal: 'Ubuntu', sans-serif;
+}
+
+.dark {
+  --color-fondo: #0b0f12;
+  --color-fondo-secundario: #14181b;
+  --color-primario: #2b8cff;
+  --color-secundario: #5b7696;
+  --color-texto: #e6eef3;
+  --color-exito: #55d07b;
+  --color-error: #ff6b6f;
+  --color-advertencia: #ffb84d;
+  --color-icon: #e6eef3;
+}
+
+/* ============================
+   2. Puente hacia Tailwind
+   ============================ */
+@theme inline {
+  --color-fondo: var(--color-fondo);
+  --color-fondo-secundario: var(--color-fondo-secundario);
+  --color-primario: var(--color-primario);
+  --color-secundario: var(--color-secundario);
+  --color-texto: var(--color-texto);
+  --color-exito: var(--color-exito);
+  --color-error: var(--color-error);
+  --color-advertencia: var(--color-advertencia);
+  --color-icon: var(--color-icon);
+
+  --font-sans: var(--fuente-principal);
+}
+
+/* ============================
+   3. Base
+   ============================ */
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-principal);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ============================
+   4. Componentes
+   ============================ */
+@layer components {
+  .toolbar-btn {
+    @apply p-2 rounded-md text-icon hover:bg-fondo-secundario transition-colors;
+  }
+  .toolbar-btn-active {
+    @apply bg-primario/10 text-primario;
+  }
+  .kbd {
+    @apply px-1.5 py-0.5 rounded bg-fondo-secundario text-xs font-mono border border-secundario/20;
+  }
+}
+
+/* ============================
+   5. Override de colores del editor (sin @layer a propósito)
+   Necesita quedar fuera de cualquier @layer para ganarle
+   a las clases prose-neutral del plugin de typography.
+   ============================ */
+.prose {
+  --tw-prose-body: var(--color-texto);
+  --tw-prose-headings: var(--color-texto);
+  --tw-prose-bold: var(--color-texto);
+  --tw-prose-bullets: var(--color-secundario);
+  --tw-prose-quotes: var(--color-secundario);
+  --tw-prose-quote-borders: var(--color-secundario);
+  --tw-prose-code: var(--color-secundario);
+  --tw-prose-hr: var(--color-fondo-secundario);
+  --tw-prose-th-borders: var(--color-fondo-secundario);
+  --tw-prose-td-borders: var(--color-fondo-secundario);
+}
+
+/* ============================
+   6. Tablas del editor (Tiptap)
+   ============================ */
+.ProseMirror table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.ProseMirror table td,
+.ProseMirror table th {
+  border: 1px solid var(--color-texto);
+  padding: 0.5rem 0.75rem;
+  position: relative;
+  vertical-align: top;
+  box-sizing: border-box;
+}
+
+.ProseMirror table th {
+  background-color: var(--color-fondo-secundario);
+  font-weight: 600;
+  text-align: left;
+}
+
+.ProseMirror table .selectedCell {
+  background-color: color-mix(in srgb, var(--color-primario) 15%, transparent);
+}
+
+.ProseMirror table .column-resize-handle {
+  background-color: var(--color-primario);
+  bottom: -2px;
+  position: absolute;
+  right: -2px;
+  pointer-events: none;
+  top: 0;
+  width: 4px;
+}
+
+.ProseMirror.resize-cursor {
+  cursor: col-resize;
+}
+
+/* ============================
+   7. Bloques de código e inline code
+   ============================ */
+
+/* Quitar las comillas invertidas decorativas que agrega @tailwindcss/typography */
+.prose code::before,
+.prose code::after {
+  content: none;
+}
+
+/* Código en línea (una palabra o frase corta) */
+.ProseMirror code {
+  background-color: var(--color-fondo-secundario);
+  color: var(--color-secundario);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.3rem;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.875em;
+}
+
+.dark .ProseMirror code {
+  color: var(--color-primario);
+}
+
+/* Bloque de código (multilínea) */
+.ProseMirror pre {
+  background-color: var(--color-secundario);
+  color: #ffffff;
+  padding: 0.9rem 1rem;
+  border-radius: 0.6rem;
+  overflow-x: auto;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 1rem 0;
+}
+
+.dark .ProseMirror pre {
+  background-color: var(--color-fondo-secundario);
+  border: 1px solid var(--color-secundario);
+  color: var(--color-texto);
+}
+
+/* Dentro de un <pre>, el <code> no debe llevar su propio fondo/padding */
+.ProseMirror pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
