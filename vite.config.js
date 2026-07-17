@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [vue(), tailwindcss()],
-  base: '/markdown-editor/', // debe coincidir exactamente con el nombre de tu repo
+  base: '/Markdown-Editor/',
 })
