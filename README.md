@@ -63,7 +63,6 @@ markdown-editor/
 │   ├── App.vue
 │   ├── main.js
 │   └── style.css                    # Variables de diseño + integración Tailwind
-├── .github/workflows/               # (si usas GitHub Actions para el deploy)
 ├── index.html
 └── vite.config.js
 ```
