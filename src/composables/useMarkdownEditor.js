@@ -9,6 +9,8 @@ import { TaskItem } from '@tiptap/extension-task-item'
 import { TableKit } from '@tiptap/extension-table'
 import { Placeholder } from '@tiptap/extension-placeholder'
 import { Markdown } from 'tiptap-markdown'
+import { PasteCleaner } from '../extensions/PasteCleaner'
+import { CaseTransformer } from '../extensions/CaseTransformer'
 
 export function useMarkdownEditor(initialContent = '', onUpdateCallback) {
   const editor = useEditor({
@@ -30,12 +32,12 @@ export function useMarkdownEditor(initialContent = '', onUpdateCallback) {
       }),
       TaskList,
       TaskItem.configure({ nested: true }),
-      TableKit.configure({
-        table: { resizable: true },
-      }),
+      TableKit.configure({table: { resizable: true },}),
       Placeholder.configure({
         placeholder: 'Escribe aquí, o pega Markdown y se formateará automáticamente...',
       }),
+      PasteCleaner,
+      CaseTransformer,
       Markdown.configure({
         html: false,
         transformPastedText: true,

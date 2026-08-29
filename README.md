@@ -2,6 +2,11 @@
 
 Editor de texto visual (WYSIWYG) para archivos `.md` y `.mdx`, construido con Vue 3 y Tiptap. Escribe con una interfaz enriquecida — similar a Word o Google Docs — mientras el archivo se guarda como Markdown limpio y compatible por debajo.
 
+### Actualización V.1.1.0
+
+- Se añade botón "Cambiar mayúsculas y minúsculas" (y otras funciones type) en la barra de herramientas, permitiendo una edición de los archivos, permitiendo mayor fluidez y facilidad al usuario.
+- Se añade la función "Limpiador de caracteres ocultos", funciona de manera automática, ahora la aplicación es capaz de ver caracteres invisibles que suelen ser arrastrados al copiar y pegar y que no forman parte de sintaxis Markdown válida y los elimina de manera automática.
+
 ## El problema que resuelve
 
 Escribir Markdown a mano es rápido para quienes ya dominan la sintaxis, pero para usuarios novatos suele ser una fuente constante de errores pequeños y frustrantes:
@@ -63,24 +68,26 @@ markdown-editor/
 │   ├── App.vue
 │   ├── main.js
 │   └── style.css                    # Variables de diseño + integración Tailwind
+├── .github/workflows/               # (si usas GitHub Actions para el deploy)
 ├── index.html
 └── vite.config.js
 ```
 
-## Lógica y arquitectura 
+## Lógica y arquitectura
 
-El proyecto separa responsabilidades en tres capas: 
+El proyecto separa responsabilidades en tres capas:
 
-- **Composables** (`src/composables/`): contienen toda la lógica de negocio, independiente de cómo se ve en pantalla: 
-  - `useMarkdownEditor` configura Tiptap: qué extensiones están activas (tablas, imágenes, enlaces, listas de tareas), cómo se ve el contenido, y qué pasa cuando el usuario escribe. 
-  - `useFileSystem` maneja crear, abrir y guardar archivos, incluyendo el aviso de cambios sin guardar. 
-  - `useTheme` y `useConfirm`/`useTableInsert` usan un patrón de estado compartido a nivel de módulo (similar a un singleton): el estado vive fuera de la función exportada, así que cualquier componente que use el composable ve y modifica el mismo estado, sin necesidad de una librería de gestión de estado como Pinia. 
+- **Composables** (`src/composables/`): contienen toda la lógica de negocio, independiente de cómo se ve en pantalla:
 
+  - `useMarkdownEditor` configura Tiptap: qué extensiones están activas (tablas, imágenes, enlaces, listas de tareas), cómo se ve el contenido, y qué pasa cuando el usuario escribe.
+  - `useFileSystem` maneja crear, abrir y guardar archivos, incluyendo el aviso de cambios sin guardar.
+  - `useTheme` y `useConfirm`/`useTableInsert` usan un patrón de estado compartido a nivel de módulo (similar a un singleton): el estado vive fuera de la función exportada, así que cualquier componente que use el composable ve y modifica el mismo estado, sin necesidad de una librería de gestión de estado como Pinia.
 
-- **\*Modales por Promesa**: en lugar de usar `confirm()`/`alert()` nativos del navegador, `useConfirm` y `useTableInsert` exponen una función que retorna una `Promise`. Cualquier parte del código puede hacer `const respuesta = await confirmAction({...})` y el flujo se pausa hasta que el usuario interactúa con el modal visual correspondiente — mismo patrón que un diálogo nativo, pero con la interfaz propia del proyecto. 
-- **Componentes (**`src/components/`**)** son mayormente "tontos": reciben datos y funciones por props, y se limitan a mostrar UI y emitir eventos. La lógica real vive en los composables. 
+- **\*Modales por Promesa**: en lugar de usar `confirm()`/`alert()` nativos del navegador, `useConfirm` y `useTableInsert` exponen una función que retorna una `Promise`. Cualquier parte del código puede hacer `const respuesta = await confirmAction({...})` y el flujo se pausa hasta que el usuario interactúa con el modal visual correspondiente — mismo patrón que un diálogo nativo, pero con la interfaz propia del proyecto.
 
-## Instalación y uso local 
+- **Componentes (**`src/components/`**)** son mayormente "tontos": reciben datos y funciones por props, y se limitan a mostrar UI y emitir eventos. La lógica real vive en los composables.
+
+## Instalación y uso local
 
 ```
 git clone 
@@ -89,23 +96,23 @@ npm install
 npm run dev 
 ```
 
-Para generar el build de producción: 
+Para generar el build de producción:
 
 ```
 bash npm run build  
 ```
 
-## Licencia 
+## Licencia
 
-Este proyecto está bajo la licencia MIT — libre para usar, modificar y distribuir. 
+Este proyecto está bajo la licencia MIT — libre para usar, modificar y distribuir.
 
-## Créditos 
+## Créditos
 
-Construido con: 
+Construido con:
 
-- [Tiptap ](https://tiptap.dev/)y el ecosistema [ProseMirror](https://prosemirror.net/)  
+- [Tiptap ](https://tiptap.dev/)y el ecosistema [ProseMirror](https://prosemirror.net/)
 - [tiptap-markdown](https://github.com/aguingand/tiptap-markdown) por Nathan Vögel
-- [Vue.js](https://vuejs.org/) y [Vite](https://vitejs.dev/) 
-- [Tailwind CSS](https://tailwindcss.com/)  
-- [Lucide Icons](https://lucide.dev/) 
+- [Vue.js](https://vuejs.org/) y [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Lucide Icons](https://lucide.dev/)
 - Desarrollado por **Carlos Solis (@IlCarlosS)** como proyecto personal y portafolio.
