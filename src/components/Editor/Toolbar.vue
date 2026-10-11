@@ -3,9 +3,10 @@ import {
   FilePlus, FolderOpen, Save,
   Bold, Italic, Underline, Strikethrough,
   List, ListOrdered, ListTodo, Quote, Code, Code2, Link2, Image as ImageIcon,
-  Table as TableIcon, Minus, Undo2, Redo2, Type,
+  Table as TableIcon, Minus, Undo2, Redo2, Type, Search,
 } from 'lucide-vue-next'
 import { useTableInsert } from '../../composables/useTableInsert'
+import { useSearch } from '../../composables/useSearch'
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const { requestTableSize } = useTableInsert()
@@ -65,6 +66,8 @@ function handleClickOutside(event) {
 onMounted(() => document.addEventListener('click', handleClickOutside))
 onUnmounted(() => document.removeEventListener('click', handleClickOutside))
 
+//busqueda y remplazo
+const { isOpen: isSearchOpen, toggleSearch } = useSearch()
 </script>
 
 <template>
@@ -198,6 +201,18 @@ onUnmounted(() => document.removeEventListener('click', handleClickOutside))
           {{ option.label }}
         </button>
       </div>
+    </div>
+
+    <!-- Grupo: Buscar y reemplazar -->
+    <div class="flex items-center gap-1 pr-2 border-r border-fondo-secundario">
+      <button
+        @click="toggleSearch"
+        :class="['toolbar-btn', { 'toolbar-btn-active': isSearchOpen }]"
+        title="Buscar y reemplazar (Ctrl+F)"
+        aria-label="Buscar y reemplazar"
+      >
+        <Search class="w-4 h-4" />
+      </button>
     </div>
   </div>
 </template>

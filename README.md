@@ -2,6 +2,9 @@
 
 Editor de texto visual (WYSIWYG) para archivos `.md` y `.mdx`, construido con Vue 3 y Tiptap. Escribe con una interfaz enriquecida — similar a Word o Google Docs — mientras el archivo se guarda como Markdown limpio y compatible por debajo.
 
+### Actualización V1.1.1
+- Nueva función buscar y remplazar. Se puede usar mediante el atajo crtl+F o en la barra de busqueda.
+
 ### Actualización V.1.1.0
 
 - Se añade botón "Cambiar mayúsculas y minúsculas" (y otras funciones type) en la barra de herramientas, permitiendo una edición de los archivos, permitiendo mayor fluidez y facilidad al usuario.
@@ -99,7 +102,7 @@ npm run dev
 Para generar el build de producción:
 
 ```
-bash npm run build  
+npm run build  
 ```
 
 ## Licencia

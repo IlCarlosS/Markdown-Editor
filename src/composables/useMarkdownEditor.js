@@ -11,6 +11,7 @@ import { Placeholder } from '@tiptap/extension-placeholder'
 import { Markdown } from 'tiptap-markdown'
 import { PasteCleaner } from '../extensions/PasteCleaner'
 import { CaseTransformer } from '../extensions/CaseTransformer'
+import { SearchAndReplace } from '../extensions/SearchAndReplace' // ← nuevo
 
 export function useMarkdownEditor(initialContent = '', onUpdateCallback) {
   const editor = useEditor({
@@ -38,6 +39,7 @@ export function useMarkdownEditor(initialContent = '', onUpdateCallback) {
       }),
       PasteCleaner,
       CaseTransformer,
+      SearchAndReplace, // ← nuevo
       Markdown.configure({
         html: false,
         transformPastedText: true,

@@ -11,6 +11,7 @@
         <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">B</kbd> — Negrita</li>
         <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">I</kbd> — Cursiva</li>
         <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">Z</kbd> — Deshacer</li>
+        <li><kbd class="kbd">Ctrl</kbd> + <kbd class="kbd">F</kbd> — Buscar y reemplazar</li>
       </ul>
     </div>
 
